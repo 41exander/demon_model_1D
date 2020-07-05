@@ -285,6 +285,7 @@ void initialise(int *num_cells, int *num_clones, int *num_demes, int *num_matrix
 	int i, j, x, y;
 	int index;
 	int init_diameter;
+	int init_line;
 	int remaining_pop;
 	int max_layer_needed;
 
@@ -305,6 +306,7 @@ void initialise(int *num_cells, int *num_clones, int *num_demes, int *num_matrix
 	*num_cells = init_pop;
 
 	init_diameter = (int)ceil(sqrt(*num_demes)); // initial diameter (measured in demes)
+	init_line = (int)(*num_demes); // initial diameter is replaced by a line of demes to be initialized
 	printf("dim_grid %d, max_demes %d, num_demes = %d, init_diameter = %d\n", dim_grid, max_demes, *num_demes, init_diameter);
 	printf("clone bintrees ");
 	if(!use_clone_bintrees) printf("not ");
@@ -348,10 +350,18 @@ void initialise(int *num_cells, int *num_clones, int *num_demes, int *num_matrix
 
 	// demes:
 	remaining_pop = init_pop;
-	for(i=0; i < init_diameter; i++) for(j=0; j < init_diameter; j++) if(remaining_pop > 0) {
+	for(i=0; i < init_line; i++) if(remaining_pop > 0) { // We need only one for loop
+		/*
 		index = i * init_diameter + j;
 		x = dim_grid / 2 - init_diameter / 2 + i;
 		y = dim_grid / 2 - init_diameter / 2 + j;
+		*/
+
+		// Instead of square, we initialize a line along the x-axis
+		index = i;
+		x = dim_grid / 2 - init_diameter/2;
+		y = dim_grid / 2 - init_diameter/2 + i;
+
 		deme_ints[POPULATION][index] = MIN(K, remaining_pop); // initially all cells belong to demes near centre of grid
 		deme_ints[XCOORD][index] = x;
 		deme_ints[YCOORD][index] = y;
@@ -1460,12 +1470,17 @@ void get_deme_coordinates(int *x_to_fill, int *y_to_fill, int old_x, int old_y, 
 	}
 	// if budging is not allowed then the site to be filled is one of the four nearest neighbours
 	else {
+		/*
 		direction = floor(4 * ran1(idum)); // randomly choose a direction;
 		// directions are right, left, up, down:
 		if(direction == 0) x_add = 1;
 		else if(direction == 1) x_add = -1;
 		else if(direction == 2) y_add = 1;
 		else y_add = -1;
+		*/
+		// Instead chose direction upwards deterministcally
+		direction = 0; 
+		x_add = 1;
 
 		*x_to_fill = old_x + x_add; // coordinates of site that will receive a cell through budging or proliferation
 		*y_to_fill = old_y + y_add;
@@ -1477,6 +1492,7 @@ void choose_grid_square(int old_deme_index, long *idum, int *new_x, int *new_y)
 {
 	int old_x = deme_ints[XCOORD][old_deme_index];
 	int old_y = deme_ints[YCOORD][old_deme_index];
+	/*
 	int direction = floor(4 * ran1(idum)); // randomly choose a direction
 
 	// directions are right, left, up, down:
@@ -1484,6 +1500,11 @@ void choose_grid_square(int old_deme_index, long *idum, int *new_x, int *new_y)
 	else if(direction == 1) {*new_x = old_x - 1; *new_y = old_y;}
 	else if(direction == 2) {*new_x = old_x; *new_y = old_y + 1;}
 	else {*new_x = old_x; *new_y = old_y - 1;}
+	*/
+
+	// Instead chose direction upwards deterministcally
+	int direction = 0;
+	*new_x = old_x + 1; *new_y = old_y;
 }
 
 // initialise a deme before it becomes occupied for the first time:

@@ -2,7 +2,7 @@ parameters
 {
     spatial_structure
     {
-        log2_deme_carrying_capacity 9
+        log2_deme_carrying_capacity 7
     }
     dispersal
     {
@@ -30,15 +30,15 @@ parameters
     }
     non_biological_parameters
     {
-        init_pop 100000
+        init_pop 1280
         matrix_max -1
         max_pop 1000000
         max_time 86400
-        max_generations 100
+        max_generations 200
         seed 10
         write_grid 1
         write_clones_file 0
-        write_demes_file 0
+        write_demes_file 1
         record_matrix 0
         write_phylo 0
         calculate_total_diversity 0
