@@ -7,7 +7,7 @@ parameters
     dispersal
     {
         migration_type 0
-        init_migration_rate 0.01
+        init_migration_rate 0.1
         migration_edge_only 0
         migration_rate_scales_with_K 0
     }
@@ -30,13 +30,13 @@ parameters
     }
     non_biological_parameters
     {
-        init_pop 1280
+        init_pop 640
         matrix_max -1
         max_pop 1000000
         max_time 86400
-        max_generations 200
+        max_generations 2000
         seed 10
-        write_grid 1
+        write_grid 0
         write_clones_file 0
         write_demes_file 1
         record_matrix 0
