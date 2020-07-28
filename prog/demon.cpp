@@ -1011,8 +1011,8 @@ void cell_migration(int *event_counter, int origin_deme_num, long *idum, int *nu
 	// check if the new cell has gone beyond the edge of the grid:
 	if(new_x < 0 || new_x >= dim_grid || new_y < 0 || new_y >= dim_grid) {
 		if(!well_mixed && !filled_grid) {
-			printf("Outgrown the grid!\n");
-			fprintf(error_log, "Outgrown the grid!\n");
+			printf("Outgrown the grid1!\n");
+			fprintf(error_log, "Outgrown the grid1!\n");
 			exit_code = 1; // program will terminate
 			return;
 		}
@@ -1078,8 +1078,8 @@ void deme_fission(int *event_counter, int origin_deme_num, long *idum, int *num_
 	if(!migration_edge_only) {
 		if(grid[x_to_fill][y_to_fill] != EMPTY) {
 			if(!filled_grid) {
-				printf("Outgrown the grid! num_cells %d\n", *num_cells);
-				fprintf(error_log, "Outgrown the grid! num_cells %d\n", *num_cells);
+				printf("Outgrown the grid2! num_cells %d\n", *num_cells);
+				fprintf(error_log, "Outgrown the grid2! num_cells %d\n", *num_cells);
 				exit_code = 1; // program will terminate
 				return;
 			}
@@ -1098,8 +1098,8 @@ void deme_fission(int *event_counter, int origin_deme_num, long *idum, int *num_
 	else {
 		if(x_to_fill < 0 || x_to_fill >= dim_grid || y_to_fill < 0 || y_to_fill >= dim_grid) {
 			if(!filled_grid) {
-				printf("Outgrown the grid! num_cells %d\n", *num_cells);
-				fprintf(error_log, "Outgrown the grid! num_cells %d\n", *num_cells);
+				printf("Outgrown the grid3! num_cells %d\n", *num_cells);
+				fprintf(error_log, "Outgrown the grid3! num_cells %d\n", *num_cells);
 				exit_code = 1; // program will terminate
 				return;
 			}
